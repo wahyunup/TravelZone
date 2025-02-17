@@ -1,0 +1,98 @@
+import { useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
+import dataUser from "../../services/dataUser";
+import BookingPopUp from "../../components/partials/popUp/BookingPopUp";
+import Login from "../_Auth/login";
+
+const detailCard = () => {
+  const { id } = useParams();
+  const { DataTravel } = dataUser();
+
+  const [travelDetail, setTravelDetail] = useState({});
+  const [isOpenPopUp, setIsOpenPopUp] = useState(false);
+
+  useEffect(() => {
+    const foundData = DataTravel.find((data) => data.id === parseInt(id));
+
+    if (foundData) {
+      setTravelDetail(foundData);
+    }
+  }, [id]);
+
+  const handleSetIsOpen = () => {
+    setIsOpenPopUp(!isOpenPopUp);
+  };
+
+  return (
+    <div className="h-screen px-[50px] flex gap-8">
+      <div className="w-full flex flex-col gap-4">
+        <div className="h-[500px] overflow-hidden rounded-3xl">
+          <img
+            src={travelDetail.image}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <h1 className="font-semibold text-[30px]">{travelDetail.tittle}</h1>
+        <p className="text-justify">{travelDetail.desc}</p>
+      </div>
+
+      <div className="sticky top-6 w-[750px] h-fit flex flex-col gap-5">
+        <div className="flex justify-between rounded-2xl items-center border border-slate-200 p-6 bg-white">
+          <div className="flex justify-between w-full">
+            <div>
+              <p className="text-slate-500 text-[14px]">Start from</p>
+              <p className="text-[18px]">
+                <span className="font-semibold ">Rp.{travelDetail.price}</span>
+                /hari
+              </p>
+            </div>
+            <button
+              onClick={handleSetIsOpen}
+              className="bg-blue-500 px-5 py-3 font-semibold text-[17px] rounded-xl text-white">
+              Booking Now
+            </button>
+          </div>
+        </div>
+
+        <div className="border flex flex-col gap-4 border-slate-200 rounded-2xl p-8">
+          <h1 className="font-semibold text-[25px]">Facility</h1>
+
+          <div className="flex flex-col gap-3">
+            <div className="border-b border-dashed pb-3">
+              <span className="pl-4">Penginapan</span>
+            </div>
+            <div className="border-b border-dashed pb-3">
+              <span className="pl-4">Penginapan</span>
+            </div>
+            <div className="border-b border-dashed pb-3">
+              <span className="pl-4">Penginapan</span>
+            </div>
+            <div className="border-b border-dashed pb-3">
+              <span className="pl-4">Penginapan</span>
+            </div>
+            <div className="border-b border-dashed pb-3">
+              <span className="pl-4">Penginapan</span>
+            </div>
+            <div className="border-b border-dashed pb-3">
+              <span className="pl-4">Penginapan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {!isOpenPopUp ? (
+        <BookingPopUp
+          price={travelDetail.price}
+          tittle={travelDetail.tittle}
+          handleIsOpen={handleSetIsOpen}
+          DataTravel={DataTravel}
+        />
+      ) : (
+        <Navigate to="/login" replace/>
+      )}
+    </div>
+  );
+};
+
+export default detailCard;
