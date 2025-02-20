@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const BookingPopUp = ({ handleIsOpen, tittle, price }) => {
-  const [TotalPrice, setTotalPrice] = useState(price);
+const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
+  const [totalPrice, setTotalPrice] = useState(price);
   const [totalTicket, setTotalTicket] = useState(1);
 
-  const NewIncrement = TotalPrice + price;
-  const NewIncrementTicket = totalTicket + 1;
-  const NewDecrement = TotalPrice - price;
-  const NewDecrementTicket = totalTicket - 1;
-
   const handleSetDecrement = () => {
-    if (totalTicket <= 1) {
-      return;
+    if (totalTicket > 1) {
+      setTotalTicket((prevTicket) => {
+        const newTicket = prevTicket - 1;
+        setTotalPrice(newTicket * price);
+        return newTicket;
+      });
     }
-    setTotalPrice(NewDecrement);
-    setTotalTicket(NewDecrementTicket);
   };
 
   const handleSetIncrement = () => {
-    setTotalTicket(NewIncrementTicket);
-    setTotalPrice(NewIncrement);
+    setTotalTicket((prevTicket) => {
+      const newTicket = prevTicket + 1;
+      setTotalPrice(newTicket * price);
+      return newTicket;
+    });
   };
 
+  useEffect(() => {
+    console.log("Total Price Terakhir:", totalPrice);
+  }, [totalPrice]);
+  
   return (
     <div className="flex fixed inset-0 justify-center items-center z-10">
       <div className=" bg-black/20 fixed inset-0" onClick={handleIsOpen} />
@@ -29,7 +33,7 @@ const BookingPopUp = ({ handleIsOpen, tittle, price }) => {
         <p className="text-[27px] font-semibold">{tittle}</p>
         <div className="flex gap-5 items-center">
           <p className="bg-slate-100 py-3 px-4 rounded-lg">
-            Rp.{TotalPrice}
+            Rp. {totalPrice}
             <span>/hari</span>
           </p>
           <div className="flex gap-4 border p-2 rounded-xl items-center">
@@ -38,7 +42,7 @@ const BookingPopUp = ({ handleIsOpen, tittle, price }) => {
             <button className="bg-blue-500 text-white py-1 px-3 rounded-lg" onClick={handleSetIncrement}>+</button>
           </div>
         </div>
-          <button className="bg-blue-500 text-white p-2 rounded-lg">Order</button>
+          <button className="bg-blue-500 text-white p-2 rounded-lg" onClick={()=>handleOrder(totalPrice)}>Order</button>
       </div>
     </div>
   );

@@ -28,6 +28,8 @@ const register = () => {
       <button className="bg-blue-500 text-white p-2 h-[50px] rounded-lg w-full">
         Register
       </button>
+      <p>Don't have an account? <a className="text-blue-500" href="/login">Register</a></p>
+
 
     </div>
     <div className="overflow-hidden h-[500px] w-[50%] rounded-lg">

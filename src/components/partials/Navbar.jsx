@@ -41,14 +41,14 @@ const Navbar = () => {
         isVisible ? "translate-y-0" : "-translate-y-full : "
       }`}>
       <div className="flex justify-between px-10">
-        <h1>TravelZone</h1>
+        <h1 className="font-semibold">TravelZone</h1>
         <div className="flex gap-14">
           {Navbar.map((nav, index) => (
-            <Link key={index} name={nav.name} to={nav.href} />
+            <Link key={index} name={nav.name} to={nav.href}/>
           ))}
         </div>
         <div className="flex gap-7">
-          <a className="border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 py-2 px-6 rounded-full" href="/login">Login</a>
+          <a className="border border-slate-700  hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-300 py-2 px-6 rounded-full" href="/login">Login</a>
           <a className=" py-2 px-6 rounded-full" href="/register">Register</a>
         </div>
       </div>

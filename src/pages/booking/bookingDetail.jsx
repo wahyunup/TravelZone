@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import dataUser from "../../services/dataUser";
 import BookingPopUp from "../../components/partials/popUp/BookingPopUp";
-import Login from "../_Auth/login";
+import Invoice from "../../components/partials/Invoice/Invoice";
 
 const detailCard = () => {
   const { id } = useParams();
   const { DataTravel } = dataUser();
-
+  
   const [travelDetail, setTravelDetail] = useState({});
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
+  const [order, setOrder] = useState(false)
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+  
 
   useEffect(() => {
     const foundData = DataTravel.find((data) => data.id === parseInt(id));
@@ -17,12 +21,25 @@ const detailCard = () => {
     if (foundData) {
       setTravelDetail(foundData);
     }
+    
+    setUser({})
+    
   }, [id]);
-
+  
   const handleSetIsOpen = () => {
-    setIsOpenPopUp(!isOpenPopUp);
+    setIsOpenPopUp(!isOpenPopUp);  
+
+    if (!user && !isOpenPopUp) {
+      alert("Please Login First")
+      return  navigate("/login")
+    }
   };
 
+  const handleOrder = () => {
+    setIsOpenPopUp(!isOpenPopUp)
+    setOrder(!order)
+  }
+  
   return (
     <div className="h-screen px-[50px] flex gap-8">
       <div className="w-full flex flex-col gap-4">
@@ -31,7 +48,7 @@ const detailCard = () => {
             src={travelDetail.image}
             alt=""
             className="w-full h-full object-cover"
-          />
+            />
         </div>
         <h1 className="font-semibold text-[30px]">{travelDetail.tittle}</h1>
         <p className="text-justify">{travelDetail.desc}</p>
@@ -81,15 +98,18 @@ const detailCard = () => {
         </div>
       </div>
 
-      {!isOpenPopUp ? (
+      {isOpenPopUp && (
         <BookingPopUp
           price={travelDetail.price}
           tittle={travelDetail.tittle}
           handleIsOpen={handleSetIsOpen}
           DataTravel={DataTravel}
+          handleOrder={handleOrder}
         />
-      ) : (
-        <Navigate to="/login" replace/>
+      )}
+
+      {order && (
+        <Invoice price={travelDetail.price}/>
       )}
     </div>
   );

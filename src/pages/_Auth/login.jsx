@@ -18,6 +18,7 @@ const login = () => {
         <button className="bg-blue-500 h-[50px] text-white p-2 rounded-lg w-full">
           Login
         </button>
+        <p>have an account? <a className="text-blue-500" href="/register">Create Account</a></p>
       </div>
       <div className="overflow-hidden h-[500px] w-[50%] rounded-lg">
         <img

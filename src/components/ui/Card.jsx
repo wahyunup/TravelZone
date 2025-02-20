@@ -1,6 +1,7 @@
 const Card = ({price, tittle, image, avatar, href}) => {
+
   return (
-    <a className="overflow-hidden h-[480px] flex flex-col rounded-3xl border border-slate-100" href={`/bookingdetail/${href}`}>
+    <a className="cursor-pointer overflow-hidden h-[480px] flex flex-col rounded-3xl border border-slate-100" href={`/bookingdetail/${href}`}>
       <div className="rounded-3xl overflow-hidden h-full">
         <img
           className="hover:scale-[1.1] transition-all duration-500 w-full h-full object-cover"
