@@ -10,35 +10,38 @@ const detailCard = () => {
   
   const [travelDetail, setTravelDetail] = useState({});
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
-  const [order, setOrder] = useState(false)
-  const [user, setUser] = useState(null)
-  const navigate = useNavigate()
-  
+  const [order, setOrder] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const foundData = DataTravel.find((data) => data.id === parseInt(id));
+    const storedUsers = JSON.parse(localStorage.getItem("loggedInUser"));
+    setUser(storedUsers);
 
+    const foundData = DataTravel.find((data) => data.id === parseInt(id));
     if (foundData) {
       setTravelDetail(foundData);
     }
-    
-    setUser({})
-    
   }, [id]);
-  
-  const handleSetIsOpen = () => {
-    setIsOpenPopUp(!isOpenPopUp);  
 
-    if (!user && !isOpenPopUp) {
-      alert("Please Login First")
-      return  navigate("/login")
+  const handleSetIsOpen = () => {
+    if (!user || Object.keys(user).length === 0) {
+      alert("Please Login First");
+      return navigate("/login");
     }
+    setIsOpenPopUp(!isOpenPopUp);
   };
 
-  const handleOrder = () => {
-    setIsOpenPopUp(!isOpenPopUp)
-    setOrder(!order)
-  }
+  const handleOrder = (totalPrice, totalTicket) => {
+    setIsOpenPopUp(false);
+    setOrder(true);
+
+    setTravelDetail((prevState) => ({
+      ...prevState,
+      totalPrice,
+      totalTicket,
+    }));
+  };
   
   return (
     <div className="h-screen px-[50px] flex gap-8">
@@ -109,7 +112,7 @@ const detailCard = () => {
       )}
 
       {order && (
-        <Invoice price={travelDetail.price}/>
+        <Invoice travelDetail={travelDetail}/>
       )}
     </div>
   );

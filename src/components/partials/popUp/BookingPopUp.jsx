@@ -1,30 +1,40 @@
 import { useEffect, useState } from "react";
 
 const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
+
   const [totalPrice, setTotalPrice] = useState(price);
   const [totalTicket, setTotalTicket] = useState(1);
 
+  // const handleSetDecrement = () => {
+  //   if (totalTicket > 1) {
+  //     setTotalTicket((prevTicket) => {
+  //       const newTicket = prevTicket - 1;
+  //       setTotalPrice(newTicket * price);
+  //       return newTicket;
+  //     });
+  //   }
+  // };
+
+  // const handleSetIncrement = () => {
+  //   setTotalTicket((prevTicket) => {
+  //     const newTicket = prevTicket + 1;
+  //     setTotalPrice(newTicket * price);
+  //     return newTicket;
+  //   });
+  // };
+
   const handleSetDecrement = () => {
-    if (totalTicket > 1) {
-      setTotalTicket((prevTicket) => {
-        const newTicket = prevTicket - 1;
-        setTotalPrice(newTicket * price);
-        return newTicket;
-      });
-    }
+    setTotalTicket((prevTicket) => (prevTicket > 1 ? prevTicket - 1 : prevTicket));
   };
 
   const handleSetIncrement = () => {
-    setTotalTicket((prevTicket) => {
-      const newTicket = prevTicket + 1;
-      setTotalPrice(newTicket * price);
-      return newTicket;
-    });
+    setTotalTicket((prevTicket) => prevTicket + 1);
   };
 
+  // Perbaikan: Update totalPrice berdasarkan totalTicket
   useEffect(() => {
-    console.log("Total Price Terakhir:", totalPrice);
-  }, [totalPrice]);
+    setTotalPrice(totalTicket * price);
+  }, [totalTicket, price]);
   
   return (
     <div className="flex fixed inset-0 justify-center items-center z-10">
@@ -42,7 +52,7 @@ const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
             <button className="bg-blue-500 text-white py-1 px-3 rounded-lg" onClick={handleSetIncrement}>+</button>
           </div>
         </div>
-          <button className="bg-blue-500 text-white p-2 rounded-lg" onClick={()=>handleOrder(totalPrice)}>Order</button>
+          <button className="bg-blue-500 text-white p-2 rounded-lg" onClick={()=>handleOrder(totalPrice, totalTicket)}>Order</button>
       </div>
     </div>
   );

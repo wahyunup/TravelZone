@@ -1,21 +1,58 @@
+import { useState } from "react";
+
 const login = () => {
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = () => {
+    if (!credentials.email || !credentials.password) {
+      alert("Semua field harus diisi!");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const foundUser = users.find(
+      (user) => user.email === credentials.email && user.password === credentials.password
+    );
+
+    if (foundUser) {
+      alert("Login berhasil!");
+      localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); 
+      window.location.href = "/";
+    } else {
+      alert("Email atau password salah!");
+    }
+  };
   return (
     <div className="flex flex-row-reverse rounded-lg border p-5 justify-between border-slate-100 gap-5 w-[1200px]">
       <div className="flex flex-col justify-center items-center gap-4 bg-white w-[50%]">
         <span className="font-semibold text-[30px]">Login</span>
         <div className="flex flex-col gap-3 w-full">
           <input
-            type="text"
-            placeholder="username"
+            type="email"
+            placeholder="email address"
+            name="email"
+            value={credentials.email}
+            onChange={handleChange}
             className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400"
           />
           <input
-            type="text"
+            type="password"
+            name="password"
+            value={credentials.password}
             placeholder="password"
+            onChange={handleChange}
             className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400"
           />
         </div>
-        <button className="bg-blue-500 h-[50px] text-white p-2 rounded-lg w-full">
+        <button onClick={handleLogin} className="bg-blue-500 h-[50px] text-white p-2 rounded-lg w-full">
           Login
         </button>
         <p>have an account? <a className="text-blue-500" href="/register">Create Account</a></p>

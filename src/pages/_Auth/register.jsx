@@ -1,4 +1,52 @@
+import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash  } from "react-icons/fa";
+import { Navigate } from "react-router-dom";
 const register = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false)
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
+  const [user, setUser] = useState({
+    username : "",
+    email : "",
+    password : "",
+    confirmPassword : "",
+  });
+
+  const handleChange = (e) => {
+    setUser({...user, [e.target.name]: e.target.value})
+  }
+
+  const handleSetUser = () => {
+
+    if (!user.username || !user.email || !user.password || !user.confirmPassword) {
+      alert("Semua field harus diisi!");
+      return;
+    }
+
+    // Ambil daftar users yang sudah ada di localStorage
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Cek apakah email sudah terdaftar
+    const isEmailUsed = existingUsers.some(users => users.email === user.email);
+
+    if (isEmailUsed) {
+      alert("Email sudah terdaftar! Gunakan email lain.");
+      return;
+    }
+
+    // Tambahkan user baru ke daftar users
+    const updatedUsers = [...existingUsers, user];
+
+    // Simpan kembali ke localStorage
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+    alert("Registrasi berhasil!");
+    Navigate
+    
+    // Reset form
+    setUser({ username: "", email: "", password: "", confirmPassword: "" });
+  }
+
+
   return (
     <div className="flex rounded-lg border p-5 justify-between border-slate-100 gap-5 w-[1200px]">
     <div className="flex flex-col justify-center items-center gap-4 bg-white w-[50%]">
@@ -7,28 +55,48 @@ const register = () => {
         <input
           type="text"
           placeholder="username"
+          name="username"
+          value={user.username}
+          onChange={handleChange}
           className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400"
         />
         <input
-          type="text"
+        required
+          type="email"
           placeholder="email address"
+          name="email"
+          value={user.email}
+          onChange={handleChange}
           className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400"
         />
+      <div className="relative">
         <input
-          type="text"
+          type={`${!isShowPassword ? "password" : "text"}`}
           placeholder="password"
-          className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400"
-        />
+          name="password"
+          value={user.password}
+          onChange={handleChange}
+          className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400 w-full "
+          />
+          <button onClick={() => setIsShowPassword(!isShowPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">{!isShowPassword ? <FaRegEye/> : <FaRegEyeSlash/> } </button>
+          </div>
+
+        <div className="relative">
         <input
-          type="text"
+          type={`${!isShowConfirmPassword ? "password" : "text"}`}
           placeholder="confirm password"
-          className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400"
-        />
+          name="confirmPassword"
+          value={user.confirmPassword}
+          onChange={handleChange}
+          className="text-[15px] bg-slate-50 rounded-md px-4 h-[45px] placeholder:text-slate-300 focus:outline-blue-400 w-full "
+          />
+          <button onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">{!isShowConfirmPassword ? <FaRegEye/> : <FaRegEyeSlash/> } </button>
+          </div>
       </div>
-      <button className="bg-blue-500 text-white p-2 h-[50px] rounded-lg w-full">
+      <button onClick={handleSetUser} className="bg-blue-500 text-white p-2 h-[50px] rounded-lg w-full">
         Register
       </button>
-      <p>Don't have an account? <a className="text-blue-500" href="/login">Register</a></p>
+      <p>Don't have an account? <a className="text-blue-500" href="/login">Login</a></p>
 
 
     </div>
