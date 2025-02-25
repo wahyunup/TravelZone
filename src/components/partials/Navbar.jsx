@@ -27,9 +27,6 @@ const Navbar = () => {
     const storedUsers = JSON.parse(localStorage.getItem("loggedInUser"));
     setUsers(storedUsers);
     setIsLogin(!!storedUsers);
-
-    console.log("stored user ===> ", storedUsers);
-    console.log("login ===>", isLogin);
   }, []);
 
   const handleLogout = () => {
@@ -70,7 +67,7 @@ const Navbar = () => {
         <div className="flex gap-7 items-center">
           {isLogin ? (
             <>
-              <a>{users?.username}</a>
+              <a>Welcome, {users?.username}</a>
 
               <button onClick={handleLogout} className="py-2 px-6 rounded-full">
                 Log Out

@@ -52,7 +52,7 @@ const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
             <button className="bg-blue-500 text-white py-1 px-3 rounded-lg" onClick={handleSetIncrement}>+</button>
           </div>
         </div>
-          <button className="bg-blue-500 text-white p-2 rounded-lg" onClick={()=>handleOrder(totalPrice, totalTicket)}>Order</button>
+          <button className="bg-blue-500 text-white p-2 rounded-lg" onClick={()=> handleOrder(totalPrice, totalTicket)}>Order</button>
       </div>
     </div>
   );

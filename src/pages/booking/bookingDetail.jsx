@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import dataUser from "../../services/dataUser";
 import BookingPopUp from "../../components/partials/popUp/BookingPopUp";
 import Invoice from "../../components/partials/Invoice/Invoice";
@@ -7,12 +7,16 @@ import Invoice from "../../components/partials/Invoice/Invoice";
 const detailCard = () => {
   const { id } = useParams();
   const { DataTravel } = dataUser();
-  
+
   const [travelDetail, setTravelDetail] = useState({});
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
   const [order, setOrder] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  const handleIsClosed = () => {
+    setOrder(!order);
+  };
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -34,7 +38,7 @@ const detailCard = () => {
 
   const handleOrder = (totalPrice, totalTicket) => {
     setIsOpenPopUp(false);
-    setOrder(true);
+    setOrder(!order);
 
     setTravelDetail((prevState) => ({
       ...prevState,
@@ -42,7 +46,7 @@ const detailCard = () => {
       totalTicket,
     }));
   };
-  
+
   return (
     <div className="h-screen px-[50px] flex gap-8">
       <div className="w-full flex flex-col gap-4">
@@ -51,7 +55,7 @@ const detailCard = () => {
             src={travelDetail.image}
             alt=""
             className="w-full h-full object-cover"
-            />
+          />
         </div>
         <h1 className="font-semibold text-[30px]">{travelDetail.tittle}</h1>
         <p className="text-justify">{travelDetail.desc}</p>
@@ -112,7 +116,11 @@ const detailCard = () => {
       )}
 
       {order && (
-        <Invoice travelDetail={travelDetail}/>
+        <Invoice
+          travelDetail={travelDetail}
+          dataUser={user}
+          handleIsClosed={() => handleIsClosed(false)}
+        />
       )}
     </div>
   );
