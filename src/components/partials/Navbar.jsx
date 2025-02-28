@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "../ui/Link";
 import { useNavigate } from "react-router-dom";
+import { RxHamburgerMenu } from "react-icons/rx";
 const Navbar = () => {
   const Navbar = [
     {
@@ -22,6 +23,7 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [users, setUsers] = useState();
   const [isLogin, setIsLogin] = useState(false);
+  const [isOpenNav, setIsopennav] = useState(false);
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -35,6 +37,10 @@ const Navbar = () => {
     setUsers(null);
     Navigate("/login");
   };
+
+  const handleIsOpenNav = () => {
+    setIsopennav(!isOpenNav)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,11 +59,13 @@ const Navbar = () => {
   }, [lastScrollY]);
 
   return (
+    <>
     <div
-      className={`sticky top-0 py-8 bg-white transition-transform duration-300 z-[10] ${
+      className={`sticky  top-0 py-8 bg-white transition-transform duration-300 z-[10] ${
         isVisible ? "translate-y-0" : "-translate-y-full : "
       }`}>
-      <div className="flex justify-between px-10">
+      {/* Navbar Large */}
+      <div className="hidden md:flex justify-between px-10">
         <h1 className="font-semibold">TravelZone</h1>
         <div className="flex gap-14">
           {Navbar.map((nav, index) => (
@@ -87,7 +95,23 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* Navbar mobile */}
+      <div className="flex md:hidden justify-between px-10">
+        <h1 className="font-semibold">TravelZone</h1>
+        <div className="flex items-center gap-3">
+          <RxHamburgerMenu onClick={handleIsOpenNav}/>
+        </div>
+      </div>
+
     </div>
+      {isOpenNav && (
+        <div className="flex justify-center absolute">
+          <span className="text-[13px]">{users?.username}</span>
+          <h1>asdasd</h1>
+        </div>
+      )}
+      </>
   );
 };
 
