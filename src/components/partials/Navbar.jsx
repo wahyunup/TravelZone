@@ -104,13 +104,15 @@ const Navbar = () => {
         </div>
       </div>
 
-    </div>
       {isOpenNav && (
-        <div className="flex justify-center absolute">
-          <span className="text-[13px]">{users?.username}</span>
-          <h1>asdasd</h1>
+        <div className="flex items-center justify-center gap-10 w-full h-screen flex-col py-5">
+          <span className="text-[15px]">{users?.username}</span>
+          {Navbar.map((item, index) => (  
+            <Link key={index} to={item.href} name={item.name}/>
+          ))}
         </div>
       )}
+    </div>
       </>
   );
 };
