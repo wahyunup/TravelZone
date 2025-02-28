@@ -5,24 +5,6 @@ const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
   const [totalPrice, setTotalPrice] = useState(price);
   const [totalTicket, setTotalTicket] = useState(1);
 
-  // const handleSetDecrement = () => {
-  //   if (totalTicket > 1) {
-  //     setTotalTicket((prevTicket) => {
-  //       const newTicket = prevTicket - 1;
-  //       setTotalPrice(newTicket * price);
-  //       return newTicket;
-  //     });
-  //   }
-  // };
-
-  // const handleSetIncrement = () => {
-  //   setTotalTicket((prevTicket) => {
-  //     const newTicket = prevTicket + 1;
-  //     setTotalPrice(newTicket * price);
-  //     return newTicket;
-  //   });
-  // };
-
   const handleSetDecrement = () => {
     setTotalTicket((prevTicket) => (prevTicket > 1 ? prevTicket - 1 : prevTicket));
   };
@@ -31,7 +13,6 @@ const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
     setTotalTicket((prevTicket) => prevTicket + 1);
   };
 
-  // Perbaikan: Update totalPrice berdasarkan totalTicket
   useEffect(() => {
     setTotalPrice(totalTicket * price);
   }, [totalTicket, price]);
@@ -44,7 +25,7 @@ const BookingPopUp = ({ handleIsOpen, tittle, price, handleOrder }) => {
         <div className="flex gap-5 items-center">
           <p className="bg-slate-100 py-3 px-4 rounded-lg">
             Rp. {totalPrice}
-            <span>/hari</span>
+            <span></span>
           </p>
           <div className="flex gap-4 border p-2 rounded-xl items-center">
             <button className="bg-blue-500 text-white py-1 px-3 rounded-lg" onClick={handleSetDecrement}>-</button>

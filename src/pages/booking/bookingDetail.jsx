@@ -3,6 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import dataUser from "../../services/dataUser";
 import BookingPopUp from "../../components/partials/popUp/BookingPopUp";
 import Invoice from "../../components/partials/Invoice/Invoice";
+import { FaHotel } from "react-icons/fa";
+import { FaCar } from "react-icons/fa";
+import { IoFastFood } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
 
 const detailCard = () => {
   const { id } = useParams();
@@ -13,21 +17,23 @@ const detailCard = () => {
   const [order, setOrder] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
+  
   const handleIsClosed = () => {
     setOrder(!order);
   };
-
+  
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("loggedInUser"));
     setUser(storedUsers);
-
+    
     const foundData = DataTravel.find((data) => data.id === parseInt(id));
     if (foundData) {
       setTravelDetail(foundData);
     }
+    
+    
   }, [id]);
-
+  
   const handleSetIsOpen = () => {
     if (!user || Object.keys(user).length === 0) {
       alert("Please Login First");
@@ -35,17 +41,24 @@ const detailCard = () => {
     }
     setIsOpenPopUp(!isOpenPopUp);
   };
-
+  
   const handleOrder = (totalPrice, totalTicket) => {
     setIsOpenPopUp(false);
     setOrder(!order);
-
+    
     setTravelDetail((prevState) => ({
       ...prevState,
       totalPrice,
       totalTicket,
     }));
   };
+  
+  const facility = travelDetail.facility ?? [];
+
+  const handleCheckout = () => {
+    setOrder(!order);
+    alert("Berhasil Order")
+  }
 
   return (
     <div className="h-screen px-[50px] flex gap-8">
@@ -68,7 +81,7 @@ const detailCard = () => {
               <p className="text-slate-500 text-[14px]">Start from</p>
               <p className="text-[18px]">
                 <span className="font-semibold ">Rp.{travelDetail.price}</span>
-                /hari
+                /Ticket
               </p>
             </div>
             <button
@@ -83,23 +96,23 @@ const detailCard = () => {
           <h1 className="font-semibold text-[25px]">Facility</h1>
 
           <div className="flex flex-col gap-3">
-            <div className="border-b border-dashed pb-3">
-              <span className="pl-4">Penginapan</span>
+            {
+              <div className="border-b border-dashed pb-3 flex items-center">
+              <FaHotel/>
+              <span className="pl-4">{facility[0]}</span>
             </div>
-            <div className="border-b border-dashed pb-3">
-              <span className="pl-4">Penginapan</span>
+            }
+            <div className="border-b border-dashed pb-3 flex items-center">
+              <FaCar/>
+              <span className="pl-4">{facility[1]}</span>
             </div>
-            <div className="border-b border-dashed pb-3">
-              <span className="pl-4">Penginapan</span>
+            <div className="border-b border-dashed pb-3 flex items-center">
+              <IoFastFood/>
+              <span className="pl-4">{facility[2]}</span>
             </div>
-            <div className="border-b border-dashed pb-3">
-              <span className="pl-4">Penginapan</span>
-            </div>
-            <div className="border-b border-dashed pb-3">
-              <span className="pl-4">Penginapan</span>
-            </div>
-            <div className="border-b border-dashed pb-3">
-              <span className="pl-4">Penginapan</span>
+            <div className="border-b border-dashed pb-3 flex items-center">
+              <FaUser/>
+              <span className="pl-4">{facility[3]}</span>
             </div>
           </div>
         </div>
@@ -119,6 +132,7 @@ const detailCard = () => {
         <Invoice
           travelDetail={travelDetail}
           dataUser={user}
+          handleCheckout={handleCheckout}
           handleIsClosed={() => handleIsClosed(false)}
         />
       )}

@@ -1,3 +1,4 @@
+import { BsAmazon } from "react-icons/bs";
 const data = () => {
   const DataTravel = [
     {
@@ -9,6 +10,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1715394898879-4bc0610a14bb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 2,
@@ -19,6 +21,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 3,
@@ -29,6 +32,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1589309736404-2e142a2acdf0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 4,
@@ -39,6 +43,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1601058497548-f247dfe349d6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 5,
@@ -49,6 +54,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1605752660759-2db7b7de8fa9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 6,
@@ -59,6 +65,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1589032916442-f8db7c7b04c6?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 7,
@@ -69,6 +76,7 @@ const data = () => {
         "https://images.unsplash.com/photo-1604560929658-bbc3c2ba6a36?q=80&w=1973&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
     {
       id: 8,
@@ -79,10 +87,11 @@ const data = () => {
         "https://img.okezone.com/content/2021/09/16/25/2472201/4-daya-tarik-wakatobi-surga-wisata-di-timur-indonesia-j3JLuQsHI2.jpg",
       avatar:
         "https://plus.unsplash.com/premium_photo-1664368832311-7fe635e32c7c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      facility: ["Kamar Hotel", "Kendaraan", "Konsumsi", "Tour Guide"],
     },
   ];
 
-  return { DataTravel};
+  return { DataTravel };
 };
 
 export default data;
