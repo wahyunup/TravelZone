@@ -61,9 +61,9 @@ const detailCard = () => {
   }
 
   return (
-    <div className="h-screen px-[50px] flex gap-8">
+    <div className="md:h-screen md:px-[50px] px-[25px] flex-col md:flex-row flex gap-8">
       <div className="w-full flex flex-col gap-4">
-        <div className="h-[500px] overflow-hidden rounded-3xl">
+        <div className="md:h-[500px] h-[400px] overflow-hidden rounded-3xl">
           <img
             src={travelDetail.image}
             alt=""
@@ -74,19 +74,19 @@ const detailCard = () => {
         <p className="text-justify">{travelDetail.desc}</p>
       </div>
 
-      <div className="sticky top-6 w-[750px] h-fit flex flex-col gap-5">
+      <div className="sticky top-6 md:w-[750px] h-fit flex flex-col gap-5">
         <div className="flex justify-between rounded-2xl items-center border border-slate-200 p-6 bg-white">
           <div className="flex justify-between w-full">
             <div>
-              <p className="text-slate-500 text-[14px]">Start from</p>
-              <p className="text-[18px]">
+              <p className="text-slate-500 md:text-[14px]">Start from</p>
+              <p className="md:text-[18px]">
                 <span className="font-semibold ">Rp.{travelDetail.price}</span>
                 /Ticket
               </p>
             </div>
             <button
               onClick={handleSetIsOpen}
-              className="bg-blue-500 px-5 py-3 font-semibold text-[17px] rounded-xl text-white">
+              className="bg-blue-500 px-5 py-3 font-semibold md:text-[17px] text-[14px] rounded-xl text-white">
               Booking Now
             </button>
           </div>

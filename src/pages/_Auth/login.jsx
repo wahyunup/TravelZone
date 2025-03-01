@@ -31,10 +31,10 @@ const login = () => {
     }
   };
   return (
-    <div className="flex flex-row-reverse rounded-lg border p-5 justify-between border-slate-100 gap-5 w-[1200px]">
-      <div className="flex flex-col justify-center items-center gap-4 bg-white w-[50%]">
-        <span className="font-semibold text-[30px]">Login</span>
-        <div className="flex flex-col gap-3 w-full">
+    <div className="flex flex-row-reverse rounded-lg border p-5 justify-between border-slate-100 gap-5 md:w-[1200px]">
+      <div className="flex flex-col justify-center items-center gap-4 bg-white md:w-[50%]">
+        <span className="font-semibold text-[25px] md:text-[30px]">Login</span>
+        <div className="flex flex-col gap-3 md:w-full w-[300px]">
           <input
             type="email"
             placeholder="email address"
@@ -55,9 +55,9 @@ const login = () => {
         <button onClick={handleLogin} className="bg-blue-500 h-[50px] text-white p-2 rounded-lg w-full">
           Login
         </button>
-        <p>have an account? <a className="text-blue-500" href="/register">Create Account</a></p>
+        <p className="text-[15px]">have an account? <a className="text-blue-500" href="/register">Create Account</a></p>
       </div>
-      <div className="overflow-hidden h-[500px] w-[50%] rounded-lg">
+      <div className="overflow-hidden h-[500px] w-[50%] rounded-lg hidden md:flex">
         <img
           src="https://images.unsplash.com/photo-1593981340005-d982402e4474?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           className="w-full h-full object-cover"
