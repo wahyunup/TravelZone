@@ -1,6 +1,5 @@
 const booking = () => {
   const userIsLogin = JSON.parse(localStorage.getItem("loggedInUser"));
-  console.log(userIsLogin?.username);
 
   let userTrip = JSON.parse(localStorage.getItem("nama")) || [];
   const filterTrip = userTrip.filter(
@@ -29,7 +28,7 @@ const booking = () => {
             </div>
           )
         ) : (
-          <p>Cant Read Your Booking</p>
+          <p className="inset-0 fixed items-center flex justify-center gap-2">Wanna Trip? <a href="/login" className="text-blue-500"> login first</a></p>
         )}
       </div>
     </div>

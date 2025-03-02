@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash  } from "react-icons/fa";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const register = () => {
   const [isShowPassword, setIsShowPassword] = useState(false)
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     username : "",
     email : "",
@@ -40,10 +41,10 @@ const register = () => {
     localStorage.setItem("users", JSON.stringify(updatedUsers));
 
     alert("Registrasi berhasil!");
-    Navigate
     
     // Reset form
     setUser({ username: "", email: "", password: "", confirmPassword: "" });
+    navigate("/login")
   }
 
 
