@@ -78,7 +78,7 @@ const Navbar = () => {
             <>
               <a>Welcome, {users?.username}</a>
 
-              <button onClick={handleLogout} className="py-2 px-6 rounded-full">
+              <button onClick={handleLogout} className="py-2 px-6 rounded-full text-red-500">
                 Log Out
               </button>
             </>
