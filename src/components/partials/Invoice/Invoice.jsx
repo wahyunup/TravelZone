@@ -42,7 +42,7 @@ const Invoice = ({ travelDetail, dataUser, handleIsClosed, handleCheckout }) => 
           <button className="border border-blue-500 text-blue-500 p-3 w-full rounded-lg">
             Download invoice
           </button>
-          <button onClick={handleCheckout} className="bg-blue-500 text-white p-3 rounded-lg w-full">
+          <button onClick={() => handleCheckout(travelDetail)} className="bg-blue-500 text-white p-3 rounded-lg w-full">
             Checkout
           </button>
         </div>

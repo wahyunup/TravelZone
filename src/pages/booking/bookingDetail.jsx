@@ -17,23 +17,21 @@ const detailCard = () => {
   const [order, setOrder] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  
+
   const handleIsClosed = () => {
     setOrder(!order);
   };
-  
+
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("loggedInUser"));
     setUser(storedUsers);
-    
+
     const foundData = DataTravel.find((data) => data.id === parseInt(id));
     if (foundData) {
       setTravelDetail(foundData);
     }
-    
-    
   }, [id]);
-  
+
   const handleSetIsOpen = () => {
     if (!user || Object.keys(user).length === 0) {
       alert("Please Login First");
@@ -41,24 +39,61 @@ const detailCard = () => {
     }
     setIsOpenPopUp(!isOpenPopUp);
   };
-  
+
   const handleOrder = (totalPrice, totalTicket) => {
     setIsOpenPopUp(false);
     setOrder(!order);
-    
+
     setTravelDetail((prevState) => ({
       ...prevState,
       totalPrice,
       totalTicket,
     }));
   };
-  
+
   const facility = travelDetail.facility ?? [];
 
-  const handleCheckout = () => {
+  // const handleCheckout = (transaction) => {
+  //   setOrder(!order);
+  //   let test = JSON.parse(localStorage.getItem("nama")) || [];
+  //   if (!test.some((item) => item.id === transaction.id)) {
+  //     alert("Berhasil Order");
+  //     let filterData = test.filter((item) => item.username !== userIsLogin.username);
+  //     let newTransaction = {
+  //       ...transaction,
+  //       username: user.username,
+  //     };
+
+  //     test.push(newTransaction);
+  //     localStorage.setItem("nama", JSON.stringify(filterData));
+  //   } else {
+  //     alert("Existing Trip");
+  //   }
+  //   navigate("/booking");
+  // };
+
+  const handleCheckout = (transaction) => {
     setOrder(!order);
-    alert("Berhasil Order")
-  }
+    let test = JSON.parse(localStorage.getItem("nama")) || [];
+  
+    if (!test.some((item) => item.id === transaction.id)) {
+      alert("Berhasil Order");
+      let newTransaction = {
+        ...transaction,
+        username: user.username,
+      };
+  
+      // Gabungin transaksi baru tanpa ngefilter data lama
+      test.push(newTransaction);
+  
+      // Simpen ulang semua data
+      localStorage.setItem("nama", JSON.stringify(test));
+    } else {
+      alert("Existing Trip");
+    }
+  
+    navigate("/booking");
+  };
 
   return (
     <div className="md:h-screen md:px-[50px] px-[25px] flex-col md:flex-row flex gap-8">
@@ -98,20 +133,20 @@ const detailCard = () => {
           <div className="flex flex-col gap-3">
             {
               <div className="border-b border-dashed pb-3 flex items-center">
-              <FaHotel/>
-              <span className="pl-4">{facility[0]}</span>
-            </div>
+                <FaHotel />
+                <span className="pl-4">{facility[0]}</span>
+              </div>
             }
             <div className="border-b border-dashed pb-3 flex items-center">
-              <FaCar/>
+              <FaCar />
               <span className="pl-4">{facility[1]}</span>
             </div>
             <div className="border-b border-dashed pb-3 flex items-center">
-              <IoFastFood/>
+              <IoFastFood />
               <span className="pl-4">{facility[2]}</span>
             </div>
             <div className="border-b border-dashed pb-3 flex items-center">
-              <FaUser/>
+              <FaUser />
               <span className="pl-4">{facility[3]}</span>
             </div>
           </div>
