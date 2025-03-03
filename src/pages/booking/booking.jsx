@@ -1,3 +1,5 @@
+import BookingCard from "../../components/ui/Card/BookingCard";
+
 const booking = () => {
   const userIsLogin = JSON.parse(localStorage.getItem("loggedInUser"));
 
@@ -5,6 +7,9 @@ const booking = () => {
   const filterTrip = userTrip.filter(
     (user) => user?.username === userIsLogin?.username
   );
+
+  console.log(userTrip);
+  
 
   return (
     <div className="h-[100vh]">
@@ -14,9 +19,8 @@ const booking = () => {
             <>
               {userTrip.map((trip, id) => (
                 <div
-                  key={id}
-                  className="p-5 border border-slate-200 rounded-lg">
-                  <p>{trip.tittle}</p>
+                  key={id}>
+                 <BookingCard dataTrip={trip}/>
                 </div>
               ))}
             </>

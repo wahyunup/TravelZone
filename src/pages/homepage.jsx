@@ -1,6 +1,6 @@
 import About from "../components/partials/homepage/About";
 import Jumbotron from "../components/partials/homepage/Jumbotron";
-import Card from "../components/ui/Card";
+import Card from "../components/ui/Card/Card";
 import dataUser from "../services/dataUser";
 import ScrollVelocity from "../components/partials/velocity/ScrollVelocity ";
 
