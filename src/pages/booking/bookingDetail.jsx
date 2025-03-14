@@ -7,10 +7,14 @@ import { FaHotel } from "react-icons/fa";
 import { FaCar } from "react-icons/fa";
 import { IoFastFood } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
+import PopUp from "../../components/modal/PopUp";
+import { usePopUpStore } from "../../store/store";
 
 const detailCard = () => {
   const { id } = useParams();
   const { DataTravel } = dataUser();
+  
+  const {PopUpMessage, showPopUp} = usePopUpStore()
 
   const [travelDetail, setTravelDetail] = useState({});
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
@@ -34,8 +38,11 @@ const detailCard = () => {
 
   const handleSetIsOpen = () => {
     if (!user || Object.keys(user).length === 0) {
-      alert("Please Login First");
-      return navigate("/login");
+      showPopUp("Please Login First", false, true);
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000)
+      return 
     }
     setIsOpenPopUp(!isOpenPopUp);
   };
@@ -53,46 +60,28 @@ const detailCard = () => {
 
   const facility = travelDetail.facility ?? [];
 
-  // const handleCheckout = (transaction) => {
-  //   setOrder(!order);
-  //   let test = JSON.parse(localStorage.getItem("nama")) || [];
-  //   if (!test.some((item) => item.id === transaction.id)) {
-  //     alert("Berhasil Order");
-  //     let filterData = test.filter((item) => item.username !== userIsLogin.username);
-  //     let newTransaction = {
-  //       ...transaction,
-  //       username: user.username,
-  //     };
-
-  //     test.push(newTransaction);
-  //     localStorage.setItem("nama", JSON.stringify(filterData));
-  //   } else {
-  //     alert("Existing Trip");
-  //   }
-  //   navigate("/booking");
-  // };
-
   const handleCheckout = (transaction) => {
     setOrder(!order);
-    let test = JSON.parse(localStorage.getItem("nama")) || [];
-  
+    let test = JSON.parse(localStorage.getItem("product")) || [];
+
     if (!test.some((item) => item.id === transaction.id)) {
-      alert("Berhasil Order");
+      showPopUp("Order Success", true, true);
       let newTransaction = {
         ...transaction,
         username: user.username,
       };
-  
+
       // Gabungin transaksi baru tanpa ngefilter data lama
       test.push(newTransaction);
-  
+
       // Simpen ulang semua data
-      localStorage.setItem("nama", JSON.stringify(test));
+      localStorage.setItem("product", JSON.stringify(test));
     } else {
-      alert("Existing Trip");
+      showPopUp("Existing Trip", false, true);
     }
-  
-    navigate("/booking");
+    setTimeout(() => {
+      navigate("/booking");
+    }, 2000)
   };
 
   return (
@@ -152,6 +141,8 @@ const detailCard = () => {
           </div>
         </div>
       </div>
+
+      {PopUpMessage.condition && <PopUp message={PopUpMessage} />}
 
       {isOpenPopUp && (
         <BookingPopUp

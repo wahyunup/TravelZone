@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { usePopUpStore } from "../../store/store";
+import PopUp from "../../components/modal/PopUp";
 
 const login = () => {
+  const {PopUpMessage, showPopUp} = usePopUpStore()
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -12,7 +15,7 @@ const login = () => {
 
   const handleLogin = () => {
     if (!credentials.email || !credentials.password) {
-      alert("Semua field harus diisi!");
+      showPopUp("Semua field harus diisi!",false , true)
       return;
     }
 
@@ -23,11 +26,13 @@ const login = () => {
     );
 
     if (foundUser) {
-      alert("Login berhasil!");
+      showPopUp("Login Success!",true , true)
       localStorage.setItem("loggedInUser", JSON.stringify(foundUser)); 
-      window.location.href = "/";
+      setTimeout(() => {
+        window.location.href = "/";
+      },2000)
     } else {
-      alert("Email atau password salah!");
+      showPopUp("Wrong email or password!",false , true)
     }
   };
   return (
@@ -55,7 +60,7 @@ const login = () => {
         <button onClick={handleLogin} className="bg-blue-500 h-[50px] text-white p-2 rounded-lg w-full">
           Login
         </button>
-        <p className="text-[15px]">have an account? <a className="text-blue-500" href="/register">Create Account</a></p>
+        <p className="text-[15px]">Don't have an account? <a className="text-blue-500" href="/register">Create Account</a></p>
       </div>
       <div className="overflow-hidden h-[500px] w-[50%] rounded-lg hidden md:flex">
         <img
@@ -64,6 +69,9 @@ const login = () => {
           alt=""
         />
       </div>
+      { PopUpMessage.condition &&
+      <PopUp message={PopUpMessage}/>
+      }
     </div>
   );
 };

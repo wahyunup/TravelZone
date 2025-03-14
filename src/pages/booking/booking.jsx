@@ -3,7 +3,7 @@ import BookingCard from "../../components/ui/Card/BookingCard";
 const booking = () => {
   const userIsLogin = JSON.parse(localStorage.getItem("loggedInUser"));
 
-  let userTrip = JSON.parse(localStorage.getItem("nama")) || [];
+  let userTrip = JSON.parse(localStorage.getItem("product")) || [];
   const filterTrip = userTrip.filter(
     (user) => user?.username === userIsLogin?.username
   );
@@ -12,7 +12,7 @@ const booking = () => {
   
 
   return (
-    <div className="h-[100vh]">
+    <div>
       <div className="flex flex-col gap-4 px-10">
         {userIsLogin ? (
           filterTrip.length > 0 ? (

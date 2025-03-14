@@ -6,7 +6,7 @@ const pageLayout = () => {
   return (
     <div>
       <Navbar/>
-      <div><Outlet/></div>
+      <div className="h-screen"><Outlet/></div>
       <Footer/>
     </div>
   );

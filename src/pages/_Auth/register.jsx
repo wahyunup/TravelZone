@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash  } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { usePopUpStore } from "../../store/store";
+import PopUp from "../../components/modal/PopUp";
+
 const register = () => {
+  const {PopUpMessage, showPopUp} = usePopUpStore()
   const [isShowPassword, setIsShowPassword] = useState(false)
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false)
   const navigate = useNavigate()
@@ -19,7 +23,7 @@ const register = () => {
   const handleSetUser = () => {
 
     if (!user.username || !user.email || !user.password || !user.confirmPassword) {
-      alert("Semua field harus diisi!");
+      showPopUp("All fields must be filled in!", false, true)
       return;
     }
 
@@ -30,7 +34,7 @@ const register = () => {
     const isEmailUsed = existingUsers.some(users => users.email === user.email);
 
     if (isEmailUsed) {
-      alert("Email sudah terdaftar! Gunakan email lain.");
+      showPopUp("Email Already Exist!", false, true)
       return;
     }
 
@@ -39,9 +43,7 @@ const register = () => {
 
     // Simpan kembali ke localStorage
     localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-    alert("Registrasi berhasil!");
-    
+    showPopUp("Registration Successfuly!", true, true)
     // Reset form
     setUser({ username: "", email: "", password: "", confirmPassword: "" });
     navigate("/login")
@@ -97,13 +99,16 @@ const register = () => {
       <button onClick={handleSetUser} className="bg-blue-500 text-white p-2 h-[50px] rounded-lg w-full">
         Register
       </button>
-      <p>Don't have an account? <a className="text-blue-500" href="/login">Login</a></p>
+      <p>have an account? <a className="text-blue-500" href="/login">Login</a></p>
 
 
     </div>
     <div className="overflow-hidden h-[500px] w-[50%] rounded-lg hidden md:flex">
     <img src="https://images.unsplash.com/photo-1593981340005-d982402e4474?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="w-full h-full object-cover" alt="" />
     </div>
+    {PopUpMessage.condition && 
+    <PopUp message={PopUpMessage}/>
+    }
   </div>
   );
 };
